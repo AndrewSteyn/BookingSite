@@ -1,47 +1,12 @@
-<!Doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html
+<header>
 
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<link rel="stylesheet" href="css/style.css">
-</head>
-
+</header>
 <body>
 
-<nav>
-<!-- Image and text -->
-<nav class="navbar navbar-light bg-light">
-  <a class="navbar-brand" href="#">
-    <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-    Bootstrap
-  </a>
-</nav>
-
 
 <?php
-include_once('scripts/bookingClass.php');
-                       //$name,$price,$wifi,$pool,$gym,$parking,$bar,$pets,$restaurant,$spa,$tv,$ac
-$radison = new Hotel('Radisson Blu Hotel, Port Elizabeth',1250,true,true,true,false,true,false,true,false,true,true);
-$kelway = new Hotel('The Kelway Hotel',1150,true,true,false,true,false,false,true,false,true,true);
-$hub = new Hotel('The Hub Boutique Hotel',1050,true,true,false,true,true,false,false,false,true,false);
-$protea = new Hotel('Protea Hotel Port Elizabeth Marine',1450,true,true,true,true,true,false,true,true,true,true);
-
-$hotels =array($radison,$kelway,$hub,$protea) ;
-
-echo var_dump($kelway->$wifi);
-?>
-
-
-
-
-
-
-
-<?php
-if (isset($_POST["book"])){
 // Import PHPMailer classes into the global namespace
 // These must be at the top of your script, not inside a function
 use PHPMailer\PHPMailer\PHPMailer;
@@ -88,10 +53,8 @@ try {
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
-}
+
 ?>
-
-
 </body>
 
 </html>
