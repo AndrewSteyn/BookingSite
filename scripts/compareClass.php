@@ -26,13 +26,14 @@
 			$_SESSION["cost2"] = $this->cost2 = $n8;
 		}
 
-		function daysBooked($parm1, $param2);
+		function daysBooked($param1, $param2){
 		//set protected properties
-		$this->checkin = $param1;
-		$this->checkout = $param2;
+		$this->checkindate = $param1;
+		$this->checkoutdate = $param2;
 		//number of days
 		$totaldays = $param1->diff($param2);
 
-		echo "Total of Duration is: ", .$totaldays. " Days";
+		echo 'Total of Duration is: '.$totaldays. 'Days';
 	}
+}
 ?>

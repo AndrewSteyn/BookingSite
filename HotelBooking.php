@@ -64,7 +64,7 @@ $hotels =array($radison,$kelway,$hub,$protea) ;
 
                   for ($x=0; $x<count($info[0]); ++$x){
                     echo"\n".'<h2>'.$info[0][$x].'</h2>';
-                    echo'</br> <img class=image src="'.$info[1][$x].'">';
+                    echo'</br> <img class="front" src="images/'.$info[1][$x].'">';
                     echo'</br><p class="text">'.$info[2][$x].'</p>'; 
                       
                };                
