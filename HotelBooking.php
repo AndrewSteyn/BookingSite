@@ -24,24 +24,38 @@ use PHPMailer\PHPMailer\Exception;
     Bootstrap
   </a>
 </nav>
+<div id="compare">
+<?php
+if (isset($_POST["submit"])){
+require_once('scripts/compareClass.php');
+echo $_POST['surname'].$_POST['name'].$_POST['email'].$_POST['checkin'].$_POST['checkout'].$_POST['selection1'].$_POST['selection2'];
+$compare = new Compare($_POST['name'],$_POST['surname'],$_POST['email'],$_POST['checkin'],$_POST['checkout'],$_POST['selection1'],$_POST['selection2']);       
+echo $compare->displayInfo();
+echo $compare->bookButton();
 
-    <form role="form" method="POST" action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>> 
-    <label for="user">NAME</label><input type="text" name="user" required>
+
+}
+?></div>
+
+
+
+    <form class="inputField" role="form" method="POST" action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>> 
+    <label class="inputField" for="name">NAME</label><input class="inputField" type="text" name="name" required>
 </br>
-  <label for="surname">SURNAME</label><input type="text" name="surname" required>
+  <label class="inputField" for="surname">SURNAME</label><input class="inputField" type="text" name="surname" required>
 </br>
-  <label for="email">EMAIL</label><input type="email" name="email" required>
+  <label class="inputField" for="email">EMAIL</label><input class="inputField" type="email" name="email" required>
 </br>
-  <label for="checkin">Check-In</label><input type="datetime-local" name="checkin">
+  <label class="inputField" for="checkin">Check-In</label><input class="inputField" type="date" name="checkin">
 </br>
-  <label for="checkout">Check-Out</label><input type="datetime-local" name="checkout">
-     <button class="submitButton" type="submit" value="submit" name="submit">SUBMIT</button>
+  <label class="inputField" for="checkout">Check-Out</label><input class="inputField" type="date" name="checkout">
+     
 </br>
 
-</form>
+
 <?php
 require_once('scripts/bookingClass.php');
-require_once('scripts/compareClass.php');
+
 
      //$name,$price,$wifi,$pool,$gym,$parking,$bar,$pets,$restaurant,$spa,$tv,$ac
     $radison = new Hotel('Radisson Blu Hotel, Port Elizabeth',1250,true,true,true,false,true,false,true,false,true,true);
@@ -51,32 +65,46 @@ require_once('scripts/compareClass.php');
     
 $hotels =array($radison,$kelway,$hub,$protea) ;
 
-
+// front info
     $info = array(array('Raddison Blue Hotel','The Kelway Hotel','The Hub Boutique Hotel','Protea Hotel Port Elizabeth Marine'),
                   array('raddisonBuilding.jpg','kelwayFront.jpg','hubFront.jpg','proteaPool.jpg'),
                   array('Overlooking the Indian Ocean, this stylish hotel sits across the road from Hobie Beach and is 2.3 km from Humewood Golf Course.',
                         'Offering views of Nelson Mandela Bay and its cliffs, this 4-star hotel features spacious rooms and a plunge pool. The hotel is located opposite Bayworld Oceanarium.',
                         'The Hub Boutique Hotel offers modern and stylish rooms with balcony or patio overlooking the garden and pool. Located in Port Elizabeth’s suburb of Walmer, the hotel provides free Wi-Fi throughout.',
                         'Protea Marine offers glorious ocean views within walking distance of Port Elizabeth, the “Friendly City” of the Eastern Cape coast and a favourite destination along South Africa’s Garden Route.'),
-                  array($radison->price,$kelway->price,$hub->price,$protea->price));
+                  array($radison->price,$kelway->price,$hub->price,$protea->price),
+                  array('radison','kelway','hub','protea'));
 
 
 
                   for ($x=0; $x<count($info[0]); ++$x){
-                    echo"\n".'<h2>'.$info[0][$x].'</h2>';
-                    echo'</br> <img class="front" src="images/'.$info[1][$x].'">';
+                    echo"\n".'<h2 class="headings">'.$info[0][$x].'</h2>';
+                    echo'</br> <img class="image" src="images/'.$info[1][$x].'">';
                     echo'</br><p class="text">'.$info[2][$x].'</p>'; 
-                      
-               };                
-
+                  }; 
+                  
 ?>
 
+<select id="selection1" name="selection1">
+ <option name="radison">Raddison Blue Hotel</option>
+ <option name="kelway">The Kelway Hotel</option>
+ <option name="hub">The Hub Boutique Hotel</option>
+ <option name="protea">Protea Hotel Port Elizabeth Marine</option>
+</select>
+
+<select id="selection2" name="selection2">
+ <option name="radison">Raddison Blue Hotel</option>
+ <option name="kelway">The Kelway Hotel</option>
+ <option name="hub">The Hub Boutique Hotel</option>
+ <option name="protea">Protea Hotel Port Elizabeth Marine</option>
+</select>
+<button class="submitButton" type="submit" value="submit" name="submit">SUBMIT</button>
+</form>
 
 
 
 
-
-
+<!-- Email -->
 <?php
 if (isset($_POST["book"])){
 // Import PHPMailer classes into the global namespace
@@ -101,8 +129,8 @@ try {
     $mail->Port       = 2525;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
     //Recipients
-    $mail->setFrom('andre-3f02ff@inbox.mailtrap.io', 'Mailer');
-    $mail->addAddress('joe@example.net', 'Joe User');     // Add a recipient
+    $mail->setFrom('andrew-3f02ff@inbox.mailtrap.io', 'Mailer');
+    $mail->addAddress($_POST, $_POST);     // Add a recipient
     $mail->addAddress('ellen@example.com');               // Name is optional
     $mail->addReplyTo('info@example.com', 'Information');
     $mail->addCC('cc@example.com');
@@ -114,9 +142,13 @@ try {
 
     // Content
     $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = 'Here is the subject';
-    $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
-    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+    $mail->Subject = 'Booking for'.$_POST[''];
+    $mail->Body    = 'Hello Hotel Manager there has been an enquiry to book a room for'.$_POST[''].'nights.
+                      From'.$_POST['checkin'].' till'.$_POST['checkout'].'. Please Contact the guests for further information.
+                      Here are their details, Name='.$_POST['name'].'Surname='.$_POST['surname'].'email='.$_POST['email'].'.';
+    $mail->AltBody = 'Hello Hotel Manager there has been an enquiry to book a room for'.$_POST[''].'nights.
+                      From'.$_POST['checkin'].' till'.$_POST['checkin'].'. Please Contact the guests for further information.
+                      Here are their details, Name='.$_POST['name'].'Surname='.$_POST['surname'].'email='.$_POST['email'].'.';
 
     $mail->send();
     echo 'Message has been sent';
@@ -125,7 +157,7 @@ try {
 }
 }
 ?>
-
+<!-- End Email -->
 
 </body>
 
