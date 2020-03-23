@@ -17,4 +17,5 @@ class Hotel {
       $this->ac = $n11;
     }
 }
+
 ?>

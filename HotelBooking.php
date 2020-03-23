@@ -1,8 +1,4 @@
-<?php
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-?>
+<?php session_start(); ?>
 <!Doctype html>
 <html lang="en">
 
@@ -21,20 +17,165 @@ use PHPMailer\PHPMailer\Exception;
 <nav class="navbar navbar-light bg-light">
   <a class="navbar-brand" href="#">
     <img src="/docs/4.0/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-    Bootstrap
+    Booking Site
   </a>
 </nav>
 <div id="compare">
 <?php
+
+require('scripts/bookingClass.php');
+
+
+     //$name,$price,$wifi,$pool,$gym,$parking,$bar,$pets,$restaurant,$spa,$tv,$ac
+    $radison = new Hotel('Radisson Blu Hotel, Port Elizabeth',1250,'yes','yes','yes','no','yes','no','yes','no','yes','yes');
+    $kelway = new Hotel('The Kelway Hotel',1150,'yes','yes','no','yes','no','no','yes','no','yes','no');
+    $hub = new Hotel('The Hub Boutique Hotel',1050,'yes','yes','no','yes','yes','no','no','no','yes','no');
+    $protea = new Hotel('Protea Hotel Port Elizabeth Marine',1450,'yes','yes','yes','yes','yes','yes','yes','yes','yes','yes');
+    
+$hotels =array($radison,$kelway,$hub,$protea) ;
+
+
 if (isset($_POST["submit"])){
+  $_SESSION['name'] = $_POST['name'];
+  $_SESSION['surname'] = $_POST['surname'];
+  $_SESSION['email'] = $_POST['email'];
+  $_SESSION['checkin'] = $_POST['checkin'];
+  $_SESSION['checkout'] = $_POST['checkout'];
 require_once('scripts/compareClass.php');
-echo $_POST['surname'].$_POST['name'].$_POST['email'].$_POST['checkin'].$_POST['checkout'].$_POST['selection1'].$_POST['selection2'];
-$compare = new Compare($_POST['name'],$_POST['surname'],$_POST['email'],$_POST['checkin'],$_POST['checkout'],$_POST['selection1'],$_POST['selection2']);       
+$compare = new Compare($_POST['name'],$_POST['surname'],$_POST['email'],$_POST['checkin'],$_POST['checkout'],$_POST['selection1'],$_POST['selection2']);   
+
+
 echo $compare->displayInfo();
 echo $compare->bookButton();
+switch ($_POST['selection1']) {
+  case 'radison':
+      $op1=$radison;
+      break;
+  case 'kelway':
+      $op1=$kelway;
+      break;
+  case 'hub':
+      $op1=$hub;
+      break;
 
-
+  default:
+    $op1=$protea;
 }
+switch ($_POST['selection2']) {
+  case 'radison':
+      $op2=$radison;
+      break;
+  case 'kelway':
+      $op2=$kelway;
+      break;
+  case 'hub':
+      $op2=$hub;
+      break;
+
+  default:
+    $op2=$protea;
+}
+
+$datetime1 = new DateTime($_POST['checkin']);
+$datetime2 = new DateTime($_POST['checkout']);
+$nights = $datetime1->diff($datetime2);
+$daysBooked = $nights->format('%R%a');
+$_SESSION['days'] = $daysBooked;
+$cost1=$daysBooked*$op1->price;
+$cost2=$daysBooked*$op2->price;
+
+echo '<table>
+      <tr>
+      <th>Features</th>
+      <th>Hotel 1 : '. $op1->name." @R'$cost1'</th>
+      <th>Hotel 2: ". $op2->name." @R'$cost2'</th>
+      </tr>
+      <tr>
+      <td>WIFI</td>
+      <td>"; 
+      echo ($op1->wifi); 
+      echo    "</td>
+      <td>"; 
+      echo ($op1->wifi);
+      echo "</tr>
+      <tr>
+      <td>POOL</td>
+      <td>";
+      echo ($op1->pool);
+      echo "</td>
+      <td>";
+      echo ($op2->pool);  
+      echo "</td>
+      </tr>
+      <tr>
+      <td>GYM</td>
+      <td>";
+      echo ($op1->gym);
+      echo "</td>
+      <td>";
+      echo ($op2->gym);
+      echo  "</td>
+      </tr>
+      <tr>
+      <td>PARKING</td>
+      <td>";
+      echo ($op1->spa);    
+      echo "</td>
+      <td>";
+      echo ($op2->spa);
+      echo "</td>
+      </tr>
+      <td>BAR</td>
+      <td>";
+      echo ($op1->bar);    
+      echo "</td>
+      <td>";
+      echo ($op2->bar);
+      echo "</td>
+      </tr>
+      <td>PETS</td>
+      <td>";
+      echo ($op1->pets);    
+      echo "</td>
+      <td>";
+      echo ($op2->pets);
+      echo "</td>
+      </tr>
+      <td>RESTAURANT</td>
+      <td>";
+      echo ($op1->restaurant);    
+      echo "</td>
+      <td>";
+      echo ($op2->restaurant);
+      echo "</td>
+      </tr>
+      <td>SPA</td>
+      <td>";
+      echo ($op1->spa);    
+      echo "</td>
+      <td>";
+      echo ($op2->spa);
+      echo "</td>
+      </tr>
+      <td>TV</td>
+      <td>";
+      echo ($op1->tv);    
+      echo "</td>
+      <td>";
+      echo ($op2->tv);
+      echo "</td>
+      </tr>
+      <td>AC</td>
+      <td>";
+      echo ($op1->ac);    
+      echo "</td>
+      <td>";
+      echo ($op2->ac);
+      echo "</td>
+      </tr>
+      </table>'";
+      }
+
 ?></div>
 
 
@@ -53,19 +194,9 @@ echo $compare->bookButton();
 </br>
 
 
-<?php
-require_once('scripts/bookingClass.php');
-
-
-     //$name,$price,$wifi,$pool,$gym,$parking,$bar,$pets,$restaurant,$spa,$tv,$ac
-    $radison = new Hotel('Radisson Blu Hotel, Port Elizabeth',1250,true,true,true,false,true,false,true,false,true,true);
-    $kelway = new Hotel('The Kelway Hotel',1150,true,true,false,true,false,false,true,false,true,true);
-    $hub = new Hotel('The Hub Boutique Hotel',1050,true,true,false,true,true,false,false,false,true,false);
-    $protea = new Hotel('Protea Hotel Port Elizabeth Marine',1450,true,true,true,true,true,false,true,true,true,true);
-    
-$hotels =array($radison,$kelway,$hub,$protea) ;
 
 // front info
+<?php
     $info = array(array('Raddison Blue Hotel','The Kelway Hotel','The Hub Boutique Hotel','Protea Hotel Port Elizabeth Marine'),
                   array('raddisonBuilding.jpg','kelwayFront.jpg','hubFront.jpg','proteaPool.jpg'),
                   array('Overlooking the Indian Ocean, this stylish hotel sits across the road from Hobie Beach and is 2.3 km from Humewood Golf Course.',
@@ -86,19 +217,19 @@ $hotels =array($radison,$kelway,$hub,$protea) ;
 ?>
 
 <select id="selection1" name="selection1">
- <option name="radison">Raddison Blue Hotel</option>
- <option name="kelway">The Kelway Hotel</option>
- <option name="hub">The Hub Boutique Hotel</option>
- <option name="protea">Protea Hotel Port Elizabeth Marine</option>
+ <option name="radison" value="radison">Raddison Blue Hotel</option>
+ <option name="kelway" value="kelway">The Kelway Hotel</option>
+ <option name="hub" value="hub">The Hub Boutique Hotel</option>
+ <option name="protea" value="protea">Protea Hotel Port Elizabeth Marine</option>
 </select>
 
 <select id="selection2" name="selection2">
- <option name="radison">Raddison Blue Hotel</option>
- <option name="kelway">The Kelway Hotel</option>
- <option name="hub">The Hub Boutique Hotel</option>
- <option name="protea">Protea Hotel Port Elizabeth Marine</option>
+ <option name="radison" value="radison">Raddison Blue Hotel</option>
+ <option name="kelway" value="kelway">The Kelway Hotel</option>
+ <option name="hub" value="hub">The Hub Boutique Hotel</option>
+ <option name="protea" value="protea">Protea Hotel Port Elizabeth Marine</option>
 </select>
-<button class="submitButton" type="submit" value="submit" name="submit">SUBMIT</button>
+<button class="submitButton" type="submit" name="submit">SUBMIT</button>
 </form>
 
 
@@ -106,16 +237,20 @@ $hotels =array($radison,$kelway,$hub,$protea) ;
 
 <!-- Email -->
 <?php
-if (isset($_POST["book"])){
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+require 'vendor/autoload.php';
+$mail = new PHPMailer(true);
+if (isset($_POST["boook"])){
 // Import PHPMailer classes into the global namespace
 // These must be at the top of your script, not inside a function
 
-
 // Load Composer's autoloader
-require 'vendor/autoload.php';
+
 
 // Instantiation and passing `true` enables exceptions
-$mail = new PHPMailer(true);
+
 
 try {
     //Server settings
@@ -130,7 +265,7 @@ try {
 
     //Recipients
     $mail->setFrom('andrew-3f02ff@inbox.mailtrap.io', 'Mailer');
-    $mail->addAddress($_POST, $_POST);     // Add a recipient
+    $mail->addAddress($_SESSION['email'], $_SESSION['email']);     // Add a recipient
     $mail->addAddress('ellen@example.com');               // Name is optional
     $mail->addReplyTo('info@example.com', 'Information');
     $mail->addCC('cc@example.com');
@@ -142,13 +277,13 @@ try {
 
     // Content
     $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = 'Booking for'.$_POST[''];
-    $mail->Body    = 'Hello Hotel Manager there has been an enquiry to book a room for'.$_POST[''].'nights.
-                      From'.$_POST['checkin'].' till'.$_POST['checkout'].'. Please Contact the guests for further information.
-                      Here are their details, Name='.$_POST['name'].'Surname='.$_POST['surname'].'email='.$_POST['email'].'.';
-    $mail->AltBody = 'Hello Hotel Manager there has been an enquiry to book a room for'.$_POST[''].'nights.
-                      From'.$_POST['checkin'].' till'.$_POST['checkin'].'. Please Contact the guests for further information.
-                      Here are their details, Name='.$_POST['name'].'Surname='.$_POST['surname'].'email='.$_POST['email'].'.';
+    $mail->Subject = 'Booking for'.$_SESSION['selectHotel'];
+    $mail->Body    = 'Hello Hotel Manager there has been an enquiry to book a room for'.$_SESSION['days'].'nights @.
+                      From'.$_SESSION['checkin'].' till'.$_SESSION['checkout'].'. Please Contact the guests for further information.
+                      Here are their details, Name='.$_SESSION['name'].'Surname='.$_SESSION['surname'].'email='.$_SESSION['email'].'.';
+    $mail->AltBody = 'Hello Hotel Manager there has been an enquiry to book a room for'.$daysBooked.'nights.
+                      From'.$_SESSION['checkin'].' till'.$_SESSION['checkin'].'. Please Contact the guests for further information.
+                      Here are their details, Name='.$_SESSION['name'].'Surname='.$_SESSION['surname'].'email='.$_SESSION['email'].'.';
 
     $mail->send();
     echo 'Message has been sent';
