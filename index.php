@@ -22,6 +22,7 @@
 </nav>
 <div id="compare">
 <script src="scripts/java.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
 <h1>TEST</h1>
 <?php
 require('scripts/bookingClass.php');
