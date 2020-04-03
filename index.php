@@ -21,6 +21,7 @@
   </a>
 </nav>
 <div id="compare">
+<script src="scripts/java.js"></script>
 <?php
 
 require('scripts/bookingClass.php');
@@ -187,15 +188,15 @@ echo '<table>
 </br>
   <label class="inputField" for="email">EMAIL</label><input class="inputField" type="email" name="email" required>
 </br>
-  <label class="inputField" for="checkin">Check-In</label><input class="inputField" type="date" name="checkin">
+  <label class="inputField" for="checkin">Check-In</label><input id="checkin" class="inputField" type="text" name="checkin">
 </br>
-  <label class="inputField" for="checkout">Check-Out</label><input class="inputField" type="date" name="checkout">
+  <label class="inputField" for="checkout">Check-Out</label><input id="chekout" class="inputField" type="text" name="checkout">
      
 </br>
 
 
 
-// front info
+<!-- front info -->
 <?php
     $info = array(array('Raddison Blue Hotel','The Kelway Hotel','The Hub Boutique Hotel','Protea Hotel Port Elizabeth Marine'),
                   array('raddisonBuilding.jpg','kelwayFront.jpg','hubFront.jpg','proteaPool.jpg'),

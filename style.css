@@ -1,0 +1,377 @@
+/*
+  Project Name: Php Hotel Booking
+  CODESPACE COLLEGE: March 2020
+*/
+/*--------------------------------------------------------------
+# General
+--------------------------------------------------------------*/
+
+
+/*-------------------- DEFINE OUR CLASS OF COLOR--------------------*/
+
+.primary-color {
+	color:#d3325f;
+}
+.secondary-color {
+	color: white;
+}
+
+/*--- END OF CLASS COLORS ---------------------*/
+
+
+/*--- FIRST NAVBAR INFO ---------------------*/
+
+.info {
+	background: black;
+	border-top: 4px solid white;
+	
+/*--- END FIRST NAVBAR INFO ---------------------*/
+
+
+/*--------------- BODY  ---------------------*/
+}
+body {
+	
+	color: #d3325f;
+	background-color: rgb(110, 98, 98);
+	background-position: center;
+	background-size: cover;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+}
+/*-------------------- BODY  ---------------------*/
+
+
+.para-first {
+	color: white;
+	border: 2px solid white;
+	border-radius: 10px;
+	font-size: 40px;
+	word-spacing: 0, 6rem;
+}
+/**********our colors******************/
+
+.info h2 {
+	word-spacing: 0, 6rem;
+}
+.info a {
+	transition: 2s ease-in-out;
+}
+.info a:hover {
+	color: #242424;
+}
+/************  HEADER SECTION START HERE  ***************/
+
+#header {
+	min-height: calc(100vh - 94px);
+	background:linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(bgim/hotel8.jpg);
+	transition: all 2s ease;
+	background-position: center;
+	background-size: cover;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+}
+.height-90 {
+	min-height: calc(100vh - 94px);
+}
+#info-2 {
+	animation: info-2;
+	animation-duration: 5s;
+	animation-delay: 3s;
+	opacity: 0;
+	animation-fill-mode: forwards;
+}
+@keyframes info-2 {
+	0% {
+		transform: translateY(100px);
+		opacity: 0;
+	}
+	50% {
+		transform: translateY(-30px);
+		opacity: 1;
+	}
+	100% {
+		transform: translateY(0px);
+		opacity: 1;
+	}
+}
+.banner h1 {
+	animation: fromleft;
+	animation-duration: 5s;
+	animation-delay: 2s;
+	opacity: 0;
+	animation-fill-mode: forwards;
+}
+@keyframes fromleft {
+	0% {
+		transform: translateX(-100px);
+		opacity: 0;
+	}
+	50% {
+		transform: translateX(30px);
+	}
+	100% {
+		transform: translateX(0px);
+		opacity: 1;
+	}
+}
+/****  MAIN BUTTON HEADER ***********/
+.main-btn {
+	color: #d3325f;
+	font-size: 2rem;
+	border: 2px solid #d3325f;
+	transition: all 1s ease-in-out;
+}
+.main-btn:hover {
+	color: rgb(29, 5, 19);
+	border: 1px solid ;
+	background: #C9c1ac;
+}
+.main-btn {
+	animation: fromRight;
+	animation-duration: 5s;
+	animation-delay: 2s;
+	opacity: 0;
+	animation-fill-mode: forwards;
+}
+@keyframes fromRight {
+	0% {
+		transform: translateX(100px);
+		opacity: 0;
+	}
+	50% {
+		transform: translateX(-30px);
+	}
+	100% {
+		transform: translateX(0px);
+		opacity: 1;
+	}
+}
+/*****  END MAIN BUTTON HEADER *********************/
+
+
+/*****  HEADER ARROW-DOWN BUTTON START HERE *******/
+
+.header-link {
+	display: inline-block;
+	position: absolute;
+	bottom: 5%;
+	left: 50%;
+	transition: all 2s ease;
+	background: #c9c1ac;
+	border-radius: 10px;
+	transition: all 2s ease;
+	animation: frombottom;
+	animation-duration: 4s;
+	animation-iteration-count: infinite;
+}
+.header-link {
+	color: #d3325f;
+	border: 2px solid  #d3325f;
+}
+@keyframes frombottom {
+	0% {
+		transform: translateY(-10px);
+	}
+	50% {
+		transform: translateY(10px);
+	}
+	100% {
+		transform: translateY(-10px);
+	}
+}
+/*****  HEADER ARROW-DOWN BUTTON **************************/
+
+
+#photo-text-1 {
+	background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(bgim/photo-text.jpg) fixed center center;
+	background-size: cover;
+	padding: 80px 0;
+}
+
+/************  SECOND NAVBAR START HERE  ******************/
+
+.navbar {
+	background:black;
+	padding: 10px 10px;
+	transition: all 1s ease;
+}
+.navbar-background {
+	padding: 5px 20px;
+}
+.navbar-brand {
+	font-size: 30px;
+	transition: all 1s ease;
+}
+.navbar-brand:hover {
+	color: #242424;
+}
+.nav-link {
+	color: white;
+	font-size: 20px;
+	text-decoration: none;
+	transition: all 2s ease;
+}
+
+.toggler-btn {
+	border: 2px solid #d3325f;
+	padding: 5px;
+	transition: all 2s ease;
+}
+.bar {
+	width: 30px;
+	height: 3px;
+	margin: 5px;
+	background: #d3325f;
+}
+.para-first {
+	font-size: 20px;
+}
+/*------- END OF SECOND NAVBAR-----------*/
+
+/*------- START OF GALLERY PHOTOS -----------*/
+
+.gall-img-container {
+	position: relative;
+	/***for the links**/
+	overflow: hidden;
+	background: linear-gradient(rgb(0, 0, 0), rgb(0, 0, 0));
+	transition: all 2s ease;
+}
+.item-img {
+	transition: all 2s ease;
+}
+.item-container:hover .item-img {
+	transform: scale(1.2);
+	opacity: 0.5;
+}
+.item-link {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: #d3325f;
+	font-size: 2rem;
+	border-top: 3px solid #d3325f;
+	border-bottom: 3px solid #d3325f;
+	transition: all 2s ease;
+	opacity: 0;
+}
+.gall-img-container:hover .item-link {
+	opacity: 1;
+}
+.item-link:hover {
+	color: #C9c1ac;
+	border: 3px solid #C9c1ac;
+	background: #C9c1ac;
+	color: #242424;
+}
+.gall-img-container:hover {
+	outline: 3px solid #d3325f;
+	outline-offset: 0.8rem;
+}
+/*-------- END GALLERY PHOTOS ------------*/
+
+/*------- START OF ARROW BOTTOM-UP BUTTON -----------*/
+
+#scrollTop {
+	color: #d3325f;
+	position: fixed;
+	bottom: 60px;
+	right: 10px;
+	background: #c9c1ac;
+	border-radius: 10px;
+	display: inline-block;
+}
+/*------- END ARROW BOTTOM-UP BUTTON -----------*/
+
+/*--------------- START OF ABOUT US ---------------------*/
+
+.about-pictures {
+	position: relative;
+}
+.about-image {
+	position: absolute;
+	width: 200px;
+	transition: all 2s ease;
+	opacity: 0.9;
+}
+.img-1 {
+	left: 0%;
+	top: 0%;
+}
+.img-2 {
+	left: 20%;
+	top: 20%;
+	z-index: 10;
+}
+.img-3 {
+	left: 40%;
+	top: 45%;
+	z-index: 20;
+}
+.img-4 {
+	left: 40%;
+	top: 0%;
+}
+.img-5 {
+	left: 0%;
+	top: 45%;
+}
+.about-image:hover {
+	outline: 2px solid #d3325f;
+	outline-offset: 0.8rem;
+	transform: scale(1.3) rotate(20deg);
+	z-index: 30;
+	opacity: 1;
+}
+.about-pictures:hover .about-image:not(:hover) {
+	opacity: 0.5;
+}
+.text-aboutus {
+	color: white;
+}
+/*-------------------- END OF ABOUT US ---------------*/
+
+/*-------------------- STAR OF CONTACT FORM ---------------*/
+#contact{
+	font-family: ;
+	border-radius: 10px;
+	border:3px solid white;
+}
+
+.height-60 {
+	min-height: 90vh;
+}
+#contact .card {
+	background: rgba(0, 0, 0, 0.5);
+	transition: all 2s ease;
+}
+#contact .card:hover {
+	background: rgba(0, 0, 0, 0.8);
+}
+#contact .card-header {
+	color: #d3325f;
+}
+#contact .input-group-text {
+	background: #d3325f;
+	border-color: #d3325f;
+	color: #242424;
+}
+#contact .card input {
+	color: #606060;
+}
+#contact .card input::placeholder {
+	color: #606060;
+}
+.contact-btn {
+	color: #d3325f;
+	border-color: #d3325f;
+	background: transparent;
+	transition: all 2s ease-in-out;
+}
+.contact-btn:hover {
+	background: #c9c1ac;
+	border-color: #c9c1ac;
+	color: #d3325f;
+}
