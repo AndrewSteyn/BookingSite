@@ -22,8 +22,8 @@
 </nav>
 <div id="compare">
 <script src="scripts/java.js"></script>
+<h1>TEST</h1>
 <?php
-
 require('scripts/bookingClass.php');
 
 
