@@ -22,7 +22,6 @@
 </nav>
 <div id="compare">
 <script src="scripts/java.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
 <h1>TEST</h1>
 <?php
 require('scripts/bookingClass.php');
@@ -189,9 +188,9 @@ echo '<table>
 </br>
   <label class="inputField" for="email">EMAIL</label><input class="inputField" type="email" name="email" required>
 </br>
-  <label class="inputField" for="checkin">Check-In</label><input id="checkin" class="inputField" type="text" name="checkin">
+  <label class="inputField" for="checkin">Check-In</label><input id="checkin" class="inputField" type="date" name="checkin">
 </br>
-  <label class="inputField" for="checkout">Check-Out</label><input id="chekout" class="inputField" type="text" name="checkout">
+  <label class="inputField" for="checkout">Check-Out</label><input id="chekout" class="inputField" type="date" name="checkout">
      
 </br>
 
