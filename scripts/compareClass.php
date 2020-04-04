@@ -19,7 +19,7 @@ class Compare{
 
     function displayInfo(){
 
-        echo "<br> First Name : " . $this->name . "<br>" .
+        echo "<br> First Name : " . $this->firstname . "<br>" .
         "Surname : " . $this->surname . "<br>" . 
         "Start Date : " . $this->checkin . "<br>" . 
         "End Date : " . $this->checkout . "<br>" .
