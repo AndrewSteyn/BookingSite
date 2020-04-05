@@ -259,7 +259,46 @@ session_start();
                       
                   
                       
-                  ?>   
+                  ?>  
+                  <input type="text" id="date1" />
+                  <input type="text" id="date2" />
+
+                  <button onclick="calculateDifference();">Calculate</button> 
+                  <script>
+                    $("#date1").datetimepicker({
+                     timepicker: false,
+                     format: "Y-m-d"
+                     });
+
+                    $("#date2").datetimepicker({
+                     timepicker: false,
+                     format: "Y-m-d"
+                    });
+                    function calculateDifference() {
+                      // Get both values from input field and convert them into Javascript Date object
+                      var date1 = new Date($("#date1").val());
+                      var date2 = new Date($("#date2").val());
+
+                      // Difference can be calculated by subtracting the first date timestamp from second date timestamp
+                      var timeDifference = date2.getTime() - date1.getTime();
+
+                      // Just for debugging purpose
+                      console.log(timeDifference);
+                      }
+
+
+                      // There are 1000 milliseconds in 1 second
+                      var milliSecondsInOneSecond = 1000;
+
+                      // There are 3600 seconds in 1 hour
+                      var secondsInOneHour = 3600;
+
+                      // And we all know there are 24 hours in 1 day
+                      var hoursInOneDay = 24;
+
+                      var days = timeDifference / (milliSecondsInOneSecond * secondsInOneHour * hoursInOneDay);
+                      console.log(days);
+                  </script>
             </center>
             </div>
           </div>
