@@ -1,5 +1,6 @@
 <?php
 // Initialize the session
+require_once "incl/Hotel.php"; //avoid __PHP_Incomplete_Class
 session_start();
 ?>
 
@@ -19,13 +20,14 @@ session_start();
   </head>
 
   <body>
-<!------------------------------------------Compare code starts here-------------------------------------->
+<!----------------------------------------------------Compare code starts here--------------------------------------------------->
 <?php
 
 
     
 ?>
-<!---------------------------------------Compare code stops here------------------------------------------>
+
+<!----------------------------------------------------Compare code stops here--------------------------------------------------->
 
 
     <div class="navbar-wrapper">
@@ -230,7 +232,7 @@ session_start();
             </center>
             </div>
           </div>
-<!-----------------------------------------------Booking Section------------------------------------------->
+<!-------------------------------------------------------------------------Booking Section----------------------------------------------------------------------------------->
         <div id="bookingSection">
           <div class="jumbotron jumbotron-fluid" id="bookingSection">
             <div class="container">
@@ -263,7 +265,7 @@ session_start();
             </div>
           </div>
         </div>
-<!--------------------------------End of the booking section------------------------------------------>
+<!------------------------------------------------------------------------End of the booking section------------------------------------------------------------------------>
         </div><!--End of the Rooms Section where the booking joins-->
 
 <!--previous booking section here-->
