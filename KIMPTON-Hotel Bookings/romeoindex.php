@@ -335,8 +335,8 @@ session_start();
                   <table>
                     <tr>
                       <th>Features</th>
-                        <th>Hotel 1 : '. $op1->selection1." @R'$cost1'</th>
-                        <th>Hotel 2: ". $op2->selection2." @R'$cost2'</th>
+                        <th>Hotel 1 : '. $op1->name." @R". $op1->price . "</th>
+                        <th>Hotel 2: ". $op2->name." @R" . $op2->price ."</th>
                         </tr>
                       <tr>
                         <td>WIFI</td>
@@ -344,7 +344,7 @@ session_start();
                         echo ($op1->wifi); 
                         echo "</td>
                         <td>"; 
-                        echo ($op1->wifi);
+                        echo ($op2->wifi);
                         echo "</tr>
                         <tr>
                         <td>POOL</td>
