@@ -1,8 +1,21 @@
 <?php
-class Hotel {
-    public $name,$price,$wifi,$pool,$gym,$parking,$bar,$pets,$restaurant,$spa,$tv,$ac;
+class Hotel 
+{
+    public $name;
+    public $price;
+    public $wifi;
+    public $pool;
+    public $gym;
+    public $parking;
+    public $bar;
+    public $pets;
+    public $restaurant;
+    public $spa;
+    public $tv;
+    public $ac;
   
-    function __construct($n0,$n1,$n2,$n3,$n4,$n5,$n6,$n7,$n8,$n9,$n10,$n11) {
+    function __construct($n0,$n1,$n2,$n3,$n4,$n5,$n6,$n7,$n8,$n9,$n10,$n11) 
+    {
       $this->name = $n0;
       $this->price = $n1;
       $this->wifi = $n2;

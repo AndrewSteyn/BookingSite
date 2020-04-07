@@ -115,7 +115,7 @@ a.navbar-brand
 	height: 100%;
 	width: 100%;
 }
-
+/*
 #bookingSection
 {
 	background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.5)), url("../images/background/bg4.jpg");
@@ -126,6 +126,7 @@ a.navbar-brand
 	height: 80%;
 	width: 100%;
 }
+*/
 
 #contactSection
 {
@@ -300,6 +301,21 @@ iframe
 	padding: 5%;
 }
 
+table
+{
+	border: thin solid;
+	border-radius: 5px;
+	color: white;
+}
+
+.results
+{
+	border: thin solid;
+	border-radius: 5px;
+	color: white;
+	width: 30%;
+}
+
 /* Top scroller css*/
 #back2Top 
 {
@@ -328,6 +344,10 @@ iframe
     background-color: #DDF;
     color: #000;
 }
+
+
+
+
 
 
 

@@ -1,6 +1,7 @@
 <?php
 // Initialize the session
 session_start();
+
 ?>
 
 <!DOCTYPE html>
@@ -13,20 +14,30 @@ session_start();
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <!--CSS link-->
-    <link rel="stylesheet" href="jquery.datetimepicker.min.css" />
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
     <title>KIMPTON Hotel Booking</title>
   </head>
 
   <body>
-<!------------------------------------------Compare code starts here-------------------------------------->
+<!----------------------------------------------------Compare code starts here--------------------------------------------------->
 <?php
 
+    require('scripts/bookingClass.php');
+    require('scripts/compareClass.php');
 
+     //$name,$price,$wifi,$pool,$gym,$parking,$bar,$pets,$restaurant,$spa,$tv,$ac
+    $radison = new Hotel('Radisson Blu Hotel, ',1250,'yes','yes','yes','no','yes','no','yes','no','yes','yes');
+    $kelway = new Hotel('The Kelway Hotel',1150,'yes','yes','no','yes','no','no','yes','no','yes','no');
+    $hub = new Hotel('The Hub Boutique Hotel',1050,'yes','yes','no','yes','yes','no','no','no','yes','no');
+    $protea = new Hotel('Protea Hotel Port',1450,'yes','yes','yes','yes','yes','yes','yes','yes','yes','yes');
+    
+    $hotels =array($radison,$kelway,$hub,$protea);
+   
     
 ?>
-<!---------------------------------------Compare code stops here------------------------------------------>
+
+<!------------------------------------------Compare code stops here------------------------------------------------>
 
 
     <div class="navbar-wrapper">
@@ -203,20 +214,24 @@ session_start();
                 </div>
               </div>
             </div>
-
-
+<!-----------------------------------------------Drop Down Array Starts---------------------------------------------->
+           <?php
+            
+               
+            ?>
+<!-----------------------------------------------Drop Down Array Stops---------------------------------------------->
             <!--Dropdown Select-->
             <center>
-            <select name="hotel1" required>
-              <option name="radioson" value="radioson">Radisson Blue Hotel</option>
+            <select id="selection1" name="selection1"  required>
+              <option name="radison" value="radison">Radisson Blue Hotel</option>
               <option name="kelway" value="kelway">The Kelway Hotel</option>
               <option name="hub" value="hub">The Hub Botique Hotel</option>
               <option name="protea" value="protea">Protea Hotel</option>
             </select>
             <br/>
             <br/>
-            <select name="hotel2" required>
-              <option name="radioson" value="radioson">Radisson Blue Hotel</option>
+            <select id="selection2" name="selection2" required>
+              <option name="radison" value="radison">Radisson Blue Hotel</option>
               <option name="kelway" value="kelway">The Kelway Hotel</option>
               <option name="hub" value="hub">The Hub Botique Hotel</option>
               <option name="protea" value="protea">Protea Hotel</option>
@@ -231,10 +246,11 @@ session_start();
             </center>
             </div>
           </div>
-<!-----------------------------------------------Booking Section------------------------------------------->
-        <div id="bookingSection">
-          <div class="jumbotron jumbotron-fluid" id="bookingSection">
-            <div class="container">
+          <br>
+<!-------------------------------------------------------------------------Booking Section----------------------------------------------------------------------------------->
+        <!--<div id="bookingSection">---This Div starts the Booking section-->
+          <!--<div class="jumbotron jumbotron-fluid" id="bookingSection">-->
+            <!--<div class="container">-->
               <center>
                 <div class="titleHead">BOOKINGS</div>
               </center>
@@ -245,10 +261,10 @@ session_start();
                   <input type="email" name="email" placeholder="Example@gmail.com" required>
                   <label for="checkin">Check In Date: </label>
                   <br/>
-                  <input type="date" name="indate">
+                  <input type="date" name="checkin">
                   <label for="checkout">Check Out Date: </label>
                   <br/>
-                  <input type="date" name="outdate">
+                  <input type="date" name="checkout">
                   <!--- <button type="submit" name="btn-submit">Book</button> --->
                   <input type="submit" name="submit" value="MAKE BOOKING">
                 </form>
@@ -256,24 +272,183 @@ session_start();
                 <?php
     
                   //////////////////////////MAIN PROGRAM////////////////////////////////
-                      
+                  //////////////////////////MAIN PROGRAM////////////////////////////////
+                  if (isset($_POST["submit"]))
+                  {
+                    $_SESSION['firstname'] = $_POST['firstname'];
+                    $_SESSION['surname'] = $_POST['surname'];
+                    $_SESSION['email'] = $_POST['email'];
+                    $_SESSION['checkin'] = $_POST['checkin'];
+                    $_SESSION['checkout'] = $_POST['checkout'];
+
+                    require_once('scripts/compareClass.php');
+
+                   $compare = new Compare($_POST['firstname'],$_POST['surname'],$_POST['email'],$_POST['checkin'],$_POST['checkout'],$_POST['selection1'],$_POST['selection2']);
+
+                        //set number of days user is booking for
+                    $compare->daysBooked($_POST['checkin'], $_POST['checkout']);
+
+                  echo $compare->displayInfo(); 
+                  /*echo $comapre->daysBooked();*/
+                  echo $compare->bookButton();
+
+                
                   
-                      
-                  ?>  
+                 switch ($_POST['selection1']) 
+                  {
+                    case 'radison':
+                        $op1=$radison;
+                        break;
+
+                    case 'kelway':
+                        $op1=$kelway;
+                        break;
+
+                    case 'hub':
+                        $op1=$hub;
+                        break;
+
+                    default:
+                      $op1=$protea;
+                  }
+
+                  switch ($_POST['selection2'])
+                  {
+                    case 'radison':
+                        $op2=$radison;
+                        break;
+
+                    case 'kelway':
+                        $op2=$kelway;
+                        break;
+
+                    case 'hub':
+                        $op2=$hub;
+                        break;
+
+                    default:
+                      $op2=$protea;
+                  }
+
+
+                  echo '<center>
+                  <table>
+                    <tr>
+                      <th>Features</th>
+                        <th>Hotel 1 : '. $op1->selection1." @R'$cost1'</th>
+                        <th>Hotel 2: ". $op2->selection2." @R'$cost2'</th>
+                        </tr>
+                      <tr>
+                        <td>WIFI</td>
+                        <td>"; 
+                        echo ($op1->wifi); 
+                        echo "</td>
+                        <td>"; 
+                        echo ($op1->wifi);
+                        echo "</tr>
+                        <tr>
+                        <td>POOL</td>
+                        <td>";
+                        echo ($op1->pool);
+                        echo "</td>
+                        <td>";
+                        echo ($op2->pool);  
+                        echo "</td>
+                        </tr>
+                        <tr>
+                        <td>GYM</td>
+                        <td>";
+                        echo ($op1->gym);
+                        echo "</td>
+                        <td>";
+                        echo ($op2->gym);
+                        echo  "</td>
+                        </tr>
+                        <tr>
+                        <td>PARKING</td>
+                        <td>";
+                        echo ($op1->spa);    
+                        echo "</td>
+                        <td>";
+                        echo ($op2->spa);
+                        echo "</td>
+                        </tr>
+                        <td>BAR</td>
+                        <td>";
+                        echo ($op1->bar);    
+                        echo "</td>
+                        <td>";
+                        echo ($op2->bar);
+                        echo "</td>
+                        </tr>
+                        <td>PETS</td>
+                        <td>";
+                        echo ($op1->pets);    
+                        echo "</td>
+                        <td>";
+                        echo ($op2->pets);
+                        echo "</td>
+                        </tr>
+                        <td>RESTAURANT</td>
+                        <td>";
+                        echo ($op1->restaurant);    
+                        echo "</td>
+                        <td>";
+                        echo ($op2->restaurant);
+                        echo "</td>
+                        </tr>
+                        <td>SPA</td>
+                        <td>";
+                        echo ($op1->spa);    
+                        echo "</td>
+                        <td>";
+                        echo ($op2->spa);
+                        echo "</td>
+                        </tr>
+                        <td>TV</td>
+                        <td>";
+                        echo ($op1->tv);    
+                        echo "</td>
+                        <td>";
+                        echo ($op2->tv);
+                        echo "</td>
+                        </tr>
+                        <td>AC</td>
+                        <td>";
+                        echo ($op1->ac);    
+                        echo "</td>
+                        <td>";
+                        echo ($op2->ac);
+                        echo "</td>
+                        </tr>
+                        </table>
+                        </center>'";
+                        }
+                           
+
+
+              /* $datetime1 = new DateTime($_POST['checkin']);
+                  $datetime2 = new DateTime($_POST['checkout']);
+                  $nights = $datetime1->diff($datetime2);
+                  $daysBooked = $nights->format('%R%a');
+                  $_SESSION['days'] = $daysBooked;
+                  $cost1=$daysBooked*$op1->price;
+                  $cost2=$daysBooked*$op2->price; */
+                ?>
+                     
             </center>
             </div>
           </div>
-        </div>
-<!--------------------------------End of the booking section------------------------------------------>
-        </div><!--End of the Rooms Section where the booking joins-->
+        <!--</div>--this Div closes the booking section-->
+<!---------------------------------------------End of the booking section------------------------------------------>
+      </div><!--End of the Rooms Section where the booking joins-->
 
 <!--previous booking section here-->
+      </div>
 
-         <!--Top Scroller-->
+          <!--Top Scroller-->
             <a id="back2Top" title="Back to top" href="#">&#10148;</a>
           <!--Top Scroller ends here-->
-
-      </div>
 
       <center>
         <div id="contactSection">
@@ -305,6 +480,7 @@ session_start();
           </div>
         </div>
       </div>
+    </div>
       </center>
      
     
@@ -334,8 +510,6 @@ session_start();
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="jquery.js"></script>
-    <script src="jquery.datetimepicker.full.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
